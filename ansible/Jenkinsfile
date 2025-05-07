@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    environment {
+        ANSIBLE_HOST_KEY_CHECKING = 'False'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+
+        stage('validar conexión a servidores ') {
+            steps {
+                sh '''
+                ansible all -i inventory.ini webserver -m ping
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo '✅ Playbook ejecutado correctamente.'
+        }
+        failure {
+            echo '❌ Error al ejecutar el playbook.'
+        }
+    }
+}
