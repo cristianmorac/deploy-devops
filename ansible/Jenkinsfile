@@ -23,7 +23,7 @@ pipeline {
         stage('Activar entorno virtual') {
             steps {
                 sh '''
-                source env-devops/bin/activate
+                source /var/lib/jenkins/workspace/pipeline-ansible/env-devops/bin/activate
                 '''
             }
         }
