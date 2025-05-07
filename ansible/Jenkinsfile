@@ -15,7 +15,15 @@ pipeline {
         stage('Crear entorrno virtual y activar ') {
             steps {
                 sh '''
-                python3 -m venv env-devops && source env-devops/bin/activate
+                python3 -m venv env-devops
+                '''
+            }
+        }
+
+        stage('Activar entorno virtual') {
+            steps {
+                sh '''
+                source env-devops/bin/activate
                 '''
             }
         }
@@ -38,6 +46,9 @@ pipeline {
     }
 
     post {
+        always {
+            cleanWs() // Limpieza final automática con el plugin Workspace Cleanup
+        }
         success {
             echo '✅ Playbook ejecutado correctamente.'
         }
