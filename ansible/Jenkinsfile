@@ -12,6 +12,22 @@ pipeline {
             }
         }
 
+        stage('Crear entorrno virtual y activar ') {
+            steps {
+                sh '''
+                python3 -m venv env-devops && source env-devops/bin/activate
+                '''
+            }
+        }
+
+        stage('instalar ansible') {
+            steps {
+                sh '''
+                pip install ansible -y
+                '''
+            }
+        }
+
         stage('validar conexión a servidores ') {
             steps {
                 sh '''
