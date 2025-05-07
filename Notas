@@ -15,9 +15,7 @@ pipeline {
         stage('Crear entorrno virtual y activar ') {
             steps {
                 sh '''
-                python3 -m venv venv
-                . venv/bin/activate
-                pip install --upgrade pip
+                python3 -m venv env-devops && source env-devops/bin/activate
                 '''
             }
         }
@@ -25,7 +23,7 @@ pipeline {
         stage('instalar ansible') {
             steps {
                 sh '''
-                pip install ansible
+                pip install ansible -y
                 '''
             }
         }
@@ -40,9 +38,6 @@ pipeline {
     }
 
     post {
-        always {
-            cleanWs() // Limpieza final automática con el plugin Workspace Cleanup
-        }
         success {
             echo '✅ Playbook ejecutado correctamente.'
         }
