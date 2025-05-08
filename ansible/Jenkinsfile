@@ -19,18 +19,11 @@ pipeline {
                 . venv/bin/activate
                 pip install --upgrade pip
                 pip install ansible
-                '''
-            }
-        }
-
-        stage('validar conexión a servidores ') {
-            steps {
-                sh '''
                 ansible -i ansible/inventory.ini webserver -m ping
                 '''
             }
         }
-    }
+}
 
     post {
         always {
