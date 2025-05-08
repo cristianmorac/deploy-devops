@@ -26,7 +26,7 @@ pipeline {
         stage('validar conexión a servidores ') {
             steps {
                 sh '''
-                ansible all -i ansible/inventory.ini webserver -m ping
+                ansible -i ansible/inventory.ini webserver -m ping
                 '''
             }
         }
