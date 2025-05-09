@@ -1,0 +1,3 @@
+---
+- name: Start mariadb
+  shell: nohup mysqld_safe > /var/log/mariadb_foreground.log 2>&1 &
