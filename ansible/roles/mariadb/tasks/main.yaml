@@ -49,6 +49,7 @@
     - '::1' # conexión ipv6
     - '127.0.0.1' # conexión local
     - '%' # conexión desde cualquier ip
+  ignore_errors: true
 
 - name: Remove test Database
   community.mysql.mysql_db:
@@ -56,6 +57,7 @@
     state: absent
     login_user: root
     login_password: "{{ mariadb_root_password }}"
+  ignore_errors: true
 
 - name: Reload privilege tables
   ansible.builtin.command: mysql -u root -p"{{ mariadb_root_password }}" -e "FLUSH PRIVILEGES;"
