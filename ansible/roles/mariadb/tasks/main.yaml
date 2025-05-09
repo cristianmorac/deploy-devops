@@ -16,6 +16,7 @@
 # llamar python.yaml
 - name: install python depends
   ansible.builtin.import_tasks: python.yaml
+  ignore_errors: true
 
 - name: Set MariaDB root password
   community.mysql.mysql_user:
