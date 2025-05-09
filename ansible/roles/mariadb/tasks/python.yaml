@@ -5,6 +5,8 @@
       - python3-pip
       - python3-dev
       - libmysqlclient-dev
+      - build-essential
+      - pkg-config
     state: present
 
 - name: ignore PEP 668 because it's silly
