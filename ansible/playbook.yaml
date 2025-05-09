@@ -1,0 +1,16 @@
+---
+- name: mariadb setup
+  hosts: web
+  become: true
+
+  vars_files:
+    - vars.yaml
+
+  pre_tasks:
+    - name: update apt cache
+      ansible.builtin.apt:
+        update_cache: yes
+        upgrade: dist
+  
+  roles:
+    - role: mariadb
