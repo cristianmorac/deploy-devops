@@ -12,15 +12,19 @@ pipeline {
             }
         }
 
-        stage('Crear entorrno virtual y activar ') {
+        stage('Instalar ansible') {
             steps {
                 sh '''
-                python3 -m venv venv
-                . venv/bin/activate
                 pip install --upgrade pip
                 pip install ansible
-                ansible -i ansible/inventory.ini webserver -m ping
                 '''
+            }
+        }
+
+        stage('Conexión con el servidor'){
+            steps {
+                sh '''
+                ansible -i ansible/inventory.ini webserver -m ping'''
             }
         }
 
