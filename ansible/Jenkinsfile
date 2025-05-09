@@ -12,34 +12,39 @@ pipeline {
             }
         }
 
-        stage('Instalar ansible') {
+        stage('Crear entorno virtual e instalar Ansible') {
             steps {
                 sh '''
+                python3 -m venv venv
+                . venv/bin/activate
                 pip install --upgrade pip
                 pip install ansible
                 '''
             }
         }
 
-        stage('Conexión con el servidor'){
+        stage('Conexión con el servidor') {
             steps {
                 sh '''
-                ansible -i ansible/inventory.ini webserver -m ping'''
+                . venv/bin/activate
+                ansible -i ansible/inventory.ini webserver -m ping
+                '''
             }
         }
 
-        stage('Ejecutar playbook'){
+        stage('Ejecutar playbook') {
             steps {
                 sh '''
+                . venv/bin/activate
                 ansible-playbook -i ansible/inventory.ini ansible/playbook.yaml
                 '''
             }
         }
-}
+    }
 
     post {
         always {
-            cleanWs() // Limpieza final automática con el plugin Workspace Cleanup
+            cleanWs()
         }
         success {
             echo '✅ Playbook ejecutado correctamente.'
