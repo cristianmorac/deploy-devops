@@ -1,3 +1,3 @@
 ---
-- name: Start mariadb
+- name: Start MariaDB service manualmente (sin systemd)
   shell: nohup mysqld_safe > /var/log/mariadb_foreground.log 2>&1 &
